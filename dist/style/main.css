@@ -1,0 +1,24 @@
+.header h1 {
+  font-size: 80px;
+  color: red;
+}
+
+span {
+  font-weight: bolder;
+}
+
+div {
+  font-size: 50px;
+}
+
+@media (max-width: 607px) {
+  span {
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 500px) {
+  div {
+    font-size: 20px;
+  }
+}
