@@ -41,7 +41,9 @@ let { src, dest } = require('gulp'),
     uglify = require("gulp-uglify-es").default,
     imagemin = require("gulp-imagemin"),
     webp = require("gulp-webp"),
-    webphtml = require("gulp-webp-html");
+    webphtml = require("gulp-webp-html"),
+    webpcss = require('gulp-webpcss'),
+    svgSprite = require('gulp-svg-sprite');
 
 
 
@@ -70,6 +72,7 @@ function css() {
                 outputStyle: "expanded"
             })
         )
+        .pipe(webpcss())
         .pipe(group_media())
         .pipe(
             autoprefixer({
@@ -123,6 +126,21 @@ function images() {
         .pipe(dest(path.build.img))
         .pipe(browsersync.stream())
 }
+
+gulp.task('svgSprite', function () {
+    return gulp.src([source_folder + '/svg/*.svg'])
+        .pipe(
+            svgSprite({
+                mode: {
+                    stack: {
+                        sprite: "../sprite/sprite.svg",
+                        example: true
+                    }
+                }
+            })
+        )
+        .pipe(dest(path.build.img))
+})
 
 function watchFiles(params) {
     gulp.watch([path.watch.html], html);
